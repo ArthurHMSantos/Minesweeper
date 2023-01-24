@@ -12,52 +12,52 @@ class MineFieldTest {
 	
 	// tests for verify if is a true neighbor
 
-	private MineField minefield;
+	private MineField field3_3;
 	
 	@BeforeEach
 	void startMineField() {
-		minefield = new MineField(3, 3);
+		field3_3 = new MineField(3, 3);
 	}
 	
 	@Test
 	void testLeftNeighbor() {
 		MineField neighbor = new MineField(3, 2);
-		boolean result = minefield.addNeighbors(neighbor);
+		boolean result = field3_3.addNeighbors(neighbor);
 		assertTrue(result);
 	}
 	
 	@Test
 	void testRightNeighbor() {
 		MineField neighbor = new MineField(3, 4);
-		boolean result = minefield.addNeighbors(neighbor);
+		boolean result = field3_3.addNeighbors(neighbor);
 		assertTrue(result);
 	}
 	
 	@Test
 	void testAboveNeighbor() {
 		MineField neighbor = new MineField(2, 3);
-		boolean result = minefield.addNeighbors(neighbor);
+		boolean result = field3_3.addNeighbors(neighbor);
 		assertTrue(result);
 	}
 	
 	@Test
 	void testUnderNeighbor() {
 		MineField neighbor = new MineField(4, 3);
-		boolean result = minefield.addNeighbors(neighbor);
+		boolean result = field3_3.addNeighbors(neighbor);
 		assertTrue(result);
 	}
 	
 	@Test
 	void testDiagonalNeighbor() {
 		MineField neighbor = new MineField(2, 2);
-		boolean result = minefield.addNeighbors(neighbor);
+		boolean result = field3_3.addNeighbors(neighbor);
 		assertTrue(result);
 	}
 	
 	@Test
 	void testNotNeighbor() {
 		MineField neighbor = new MineField(1, 1);
-		boolean result = minefield.addNeighbors(neighbor);
+		boolean result = field3_3.addNeighbors(neighbor);
 		assertFalse(result);
 	}
 
@@ -65,68 +65,68 @@ class MineFieldTest {
 	// tests for switchMarked Function
 	
 	@Test
-	void testeDefaultSwitchMarked() {
+	void testDefaultSwitchMarked() {
 		
 	}
 	
 	@Test
-	void testeSwitchMarked() {
-		minefield.switchMarked();
-		assertTrue(minefield.isMarked());
+	void testSwitchMarked() {
+		field3_3.switchMarked();
+		assertTrue(field3_3.isMarked());
 	}
 	
 	@Test
-	void testeDoubleSwitchMarked() {
-		minefield.switchMarked();
-		minefield.switchMarked();
-		assertFalse(minefield.isMarked());
+	void testDoubleSwitchMarked() {
+		field3_3.switchMarked();
+		field3_3.switchMarked();
+		assertFalse(field3_3.isMarked());
 	}
 	
-	// tests for opened 
+	// tests for open a field
 	
 	@Test
-	void testeOpenNotMinedNotMarked() {
-		assertTrue(minefield.open());
-	}
-	
-	@Test
-	void testeOpenNotMinedMarked() {
-		minefield.switchMarked();
-		assertFalse(minefield.open());
+	void testOpenNotMinedNotMarked() {
+		assertTrue(field3_3.open());
 	}
 	
 	@Test
-	void testeOpenMinedNotMarked() {
-		minefield.plantMine();
+	void testOpenNotMinedMarked() {
+		field3_3.switchMarked();
+		assertFalse(field3_3.open());
+	}
+	
+	@Test
+	void testOpenMinedNotMarked() {
+		field3_3.plantMine();
 		assertThrowsExactly(ExplosionException.class, () ->{
-			minefield.open();
+			field3_3.open();
 			});
 	}	
 	
 	@Test
-	void testeOpenMinedMarked() {
-		minefield.plantMine();
-		minefield.switchMarked();
-		assertFalse(minefield.open());
+	void testOpenMinedMarked() {
+		field3_3.plantMine();
+		field3_3.switchMarked();
+		assertFalse(field3_3.open());
 	}
 
 	@Test
-	void testeOpenWithNeighborsOne() {
+	void testOpenWithNeighborsOne() {
 		
 		MineField neighborOfNeighbor = new MineField(1, 1);
 	
 		MineField neighbor1 = new MineField(2, 2);
 		neighbor1.addNeighbors(neighborOfNeighbor);
 		
-		minefield.addNeighbors(neighbor1);
+		field3_3.addNeighbors(neighbor1);
 		
-		minefield.open();
+		field3_3.open();
 		
 		assertTrue(neighborOfNeighbor.isOpened() && neighbor1.isOpened());
 	}
 	
 	@Test
-	void testeOpenWithNeighborsTwo() {
+	void testOpenWithNeighborsTwo() {
 		
 		MineField neighborOfNeighbor = new MineField(1, 1);;
 		neighborOfNeighbor.plantMine();
@@ -134,10 +134,74 @@ class MineFieldTest {
 		MineField neighbor1 = new MineField(2, 2);
 		neighbor1.addNeighbors(neighborOfNeighbor);
 		
-		minefield.addNeighbors(neighbor1);
+		field3_3.addNeighbors(neighbor1);
 		
-		minefield.open();
+		field3_3.open();
 		
 		assertTrue(neighbor1.isOpened() && !neighborOfNeighbor.isOpened());
+	}
+	
+	// test nearby mines
+	@Test
+	void testThereAreNeabyMines() {
+		MineField neighbor = new MineField(3, 2);;
+		neighbor.plantMine();
+		MineField neighbor2 = new MineField(3, 4);;
+		neighbor2.plantMine();
+		
+		field3_3.addNeighbors(neighbor);
+		field3_3.addNeighbors(neighbor2);
+		
+		assertEquals(2, field3_3.nearbyMines());
+		
+	}
+	
+	// restart test
+	@Test
+	void test() {
+	    field3_3.restart();
+	    assertTrue(!field3_3.isOpened() && !field3_3.isMarked() && !field3_3.isMined());
+	}
+	
+	
+	// to string test
+	
+	@Test
+	void testToString() {
+		
+		MineField field1_5 = new MineField(1,5);
+		MineField field2_2 = new MineField(2,2);
+		MineField field2_3 = new MineField(2,3);
+		MineField field2_4 = new MineField(2,4);
+		MineField field3_2 = new MineField(3,2);
+		MineField field3_4 = new MineField(3,4);
+		MineField field4_2 = new MineField(4,2);
+		MineField field4_3 = new MineField(4,3);
+		MineField field4_4 = new MineField(4,4);
+		
+		field2_4.addNeighbors(field1_5);
+		field2_4.addNeighbors(field2_3);
+		field3_3.addNeighbors(field2_2);
+		field3_3.addNeighbors(field2_3);
+		field3_3.addNeighbors(field2_4);
+		field3_3.addNeighbors(field3_2);
+		field3_3.addNeighbors(field3_4);
+		field3_3.addNeighbors(field4_2);
+		field3_3.addNeighbors(field4_3);
+		field3_3.addNeighbors(field4_4);
+		
+		field1_5.plantMine();
+		field3_3.open();		
+		
+		char c2_2 = field2_2.toString().charAt(0);
+		char c2_3 = field2_3.toString().charAt(0);
+		char c2_4 = field2_4.toString().charAt(0);
+		char c3_3 = field3_3.toString().charAt(0);
+		char c4_4 = field4_4.toString().charAt(0);
+		
+		char[] initialized = new char[]{c2_2,c2_3,c2_4,c3_3,c4_4};
+		char[] expected = new char[]{' ',' ','1',' ',' '};
+				
+		assertArrayEquals(expected, initialized);
 	}
 }

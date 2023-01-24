@@ -104,11 +104,11 @@ public class MineField {
     	return discovered || proteccted;
     }
     
-    long nearbyMines () {
+    public long nearbyMines () {
     	return neighbors.stream().filter(n -> n.mined).count();
     }
     
-    void restart () {
+    public void restart () {
     	opened = false;
     	marked = false;
     	mined = false;
@@ -116,7 +116,15 @@ public class MineField {
     
     public String toString() {
     	if(marked) {
-    		
+    		return "X";
+    	} else if (opened && mined) {
+    		return "*";
+    	} else if (opened && nearbyMines() > 0) {
+    		return Long.toString(nearbyMines());
+    	} else if (opened) {
+    		return " ";
+    	} else {
+    		return "?";
     	}
     }
 }
