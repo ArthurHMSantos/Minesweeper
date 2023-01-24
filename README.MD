@@ -6,8 +6,8 @@ A simple console-based minesweeper game written in Java.
 <li>Clone the repository to your local machine using git clone https://github.com/ArthurHMSantos/Minesweeper.git</li>
 <li>Open the Command Prompt or Terminal</li>
 <li>Navigate to the directory where the Java file is located</li>
-<li>Run the command javac application.java to compile the file</li>
-<li>Run the command java application to execute the file</li>
+<li>Run the command <b>javac application.java</b> to compile the file</li>
+<li>Run the command <b>java application</b> to execute the file</li>
 </ul>
 
 <h2>How to Play :joystick:</h2>
@@ -19,14 +19,15 @@ The objective of the game is to clear all the squares on the board without deton
 <li>The game ends when all mines are flagged or all non-mine squares are cleared.</li>
 </ul>
  
-<h2>Customization</h2>
+<h2>Customization :wrench:</h2>
 The game can be customized by changing the values of the following variables on the board Constructor in the Aplication.java file:
+<p></p>
+<p><b>Board board = new Board(NumberOfRows, NumberOfColumns, NumberOfMines);</b></p>
 
 <ul>
-<li>Board board = new Board(NumberOfRows, NumberOfColumns, NumberOfMines);</li>
 <li>boardSize: The number of rows and columns on the board, change the NumberOfRows and the NumberOfColumns</li>
 <li>numMines: The number of mines on the board, change the NumberOfMines</li>
-<li>That's it! You can Play now.</li>
+<li>That's it! You can play it now.</li>
 </ul>
 
-Enjoy!
+<h2>Enjoy!</h2>
