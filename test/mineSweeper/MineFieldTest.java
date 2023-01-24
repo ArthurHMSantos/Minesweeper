@@ -71,14 +71,14 @@ class MineFieldTest {
 	
 	@Test
 	void testSwitchMarked() {
-		field3_3.switchMarked();
+		field3_3.switchMark();
 		assertTrue(field3_3.isMarked());
 	}
 	
 	@Test
 	void testDoubleSwitchMarked() {
-		field3_3.switchMarked();
-		field3_3.switchMarked();
+		field3_3.switchMark();
+		field3_3.switchMark();
 		assertFalse(field3_3.isMarked());
 	}
 	
@@ -91,7 +91,7 @@ class MineFieldTest {
 	
 	@Test
 	void testOpenNotMinedMarked() {
-		field3_3.switchMarked();
+		field3_3.switchMark();
 		assertFalse(field3_3.open());
 	}
 	
@@ -106,7 +106,7 @@ class MineFieldTest {
 	@Test
 	void testOpenMinedMarked() {
 		field3_3.plantMine();
-		field3_3.switchMarked();
+		field3_3.switchMark();
 		assertFalse(field3_3.open());
 	}
 

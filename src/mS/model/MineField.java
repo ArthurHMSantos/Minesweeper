@@ -65,7 +65,7 @@ public class MineField {
     
     // switch marked and mined states
     
-    public void switchMarked() {
+    public void switchMark() {
     	if (!opened) {
     		marked = !marked;
 		}
