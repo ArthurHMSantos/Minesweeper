@@ -1,15 +1,12 @@
 package mS;
 
 import mS.model.Board;
+import mS.view.BoardConsole;
 
 public class application {
 	public static void main(String[] args) {
 		
-		Board board = new Board(6, 6, 6);
-		
-		board.open(3, 3);
-		board.switchMark(1, 1);
-		
-		System.out.println(board);
+		Board board = new Board(8, 8, 2);
+		new BoardConsole(board);
 	}
 }

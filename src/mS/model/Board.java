@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import mS.exception.ExplosionException;
+
 public class Board {
 
 	private int rows;
@@ -21,12 +23,17 @@ public class Board {
 		associateNeighbors();
 		sortMines();
 	}
-
+	
 	public void open(int row, int column) {
-		minefields.parallelStream()
-		.filter(m -> m.getRow() == row && m.getColumn() == column)
-		.findFirst()
-		.ifPresent(m -> m.open());
+		try {
+			minefields.parallelStream()
+			.filter(m -> m.getRow() == row && m.getColumn() == column)
+			.findFirst()
+			.ifPresent(m -> m.open());
+		} catch (ExplosionException e) {
+			minefields.forEach(m -> m.setOpened(true));
+			throw e;
+		}
 	}
 
 	public void switchMark(int row, int column) {
@@ -58,9 +65,9 @@ public class Board {
 		Predicate<MineField> mined = c -> c.isMined();
 		
 		do {
-			plantedMines = minefields.stream().filter(mined).count();
 			int randomValue = (int) (Math.random() * minefields.size());
 			minefields.get(randomValue).plantMine();
+			plantedMines = minefields.stream().filter(mined).count();
 		} while (plantedMines < mines);
 	}
 	

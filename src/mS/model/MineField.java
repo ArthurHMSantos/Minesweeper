@@ -26,6 +26,10 @@ public class MineField {
 		return opened;
 	}
 
+	void setOpened(boolean opened) {
+		this.opened = opened;
+	}
+
 	public boolean isMined() {
 		return mined;
 	}
